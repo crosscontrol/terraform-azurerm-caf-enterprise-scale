@@ -137,6 +137,10 @@ locals {
       "primary_shared_key",
       "secondary_shared_key",
     ]
+    azurerm_automation_account = [
+      "dsc_primary_access_key",
+      "dsc_secondary_access_key",
+    ]
   }
 }
 
