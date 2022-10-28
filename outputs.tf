@@ -106,11 +106,18 @@ output "azurerm_log_analytics_solution" {
 
 # The following output is used to ensure all Automation
 # Account data is returned to the root module.
+# Includes logic to remove sensitive values.
 output "azurerm_automation_account" {
   value = {
-    management = azurerm_automation_account.management
+    management = {
+      for rk, rv in azurerm_automation_account.management :
+      rk => {
+        for ak, av in rv :
+        ak => av
+        if contains(local.sensitive_attributes["azurerm_automation_account"], ak) != true
+      }
   }
-  description = "Returns the configuration data for all Automation Accounts created by this module."
+  description = "Returns the configuration data for all Automation Accounts created by this module. Excludes sensitive values."
 }
 
 # The following output is used to ensure all Log Analytics
