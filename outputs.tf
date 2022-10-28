@@ -116,6 +116,7 @@ output "azurerm_automation_account" {
         ak => av
         if contains(local.sensitive_attributes["azurerm_automation_account"], ak) != true
       }
+    }
   }
   description = "Returns the configuration data for all Automation Accounts created by this module. Excludes sensitive values."
 }
